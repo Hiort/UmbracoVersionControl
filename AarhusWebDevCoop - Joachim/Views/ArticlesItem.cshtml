@@ -1,0 +1,17 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.ArticlesItem>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+<div>
+    <h1>@Umbraco.Field("articleTitle")</h1>
+    <h6>@Umbraco.Field("articleSubHeader")</h6>
+    @{
+    var typedMediaPickerSingle = Model.Content.GetPropertyValue<IPublishedContent>("articleImage");
+    if (typedMediaPickerSingle != null)
+    {
+        <img src="@typedMediaPickerSingle.Url" style="width:500px" alt="@typedMediaPickerSingle.GetPropertyValue("alt")" />
+    }
+    }    
+    <p>@Umbraco.Field("articleContents")</p>
+</div>

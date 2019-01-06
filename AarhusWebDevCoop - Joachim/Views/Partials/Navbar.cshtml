@@ -1,0 +1,45 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using Umbraco.Web
+
+
+@*
+    This snippet displays a list of links of the pages immediately under the top-most page in the content tree.
+    This is the home page for a standard website.
+    It also highlights the current active page/section in the navigation with the CSS class "current".
+*@
+
+@{ var selection = Model.Content.Site().Children.Where(x => x.IsVisible()).ToArray(); }
+
+@if (selection.Length > 0)
+{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="@Model.Content.Site().Url">@Model.Content.Site().Name</a>
+        </li>
+        @foreach (var item in selection)
+        {
+            if(item.Name == "Login" && Members.GetCurrentLoginStatus().IsLoggedIn) {
+            <li class="nav-item @(item.IsAncestorOrSelf(Model.Content) ? "current" : null) dropdown">
+                <a class="nav-link" href="@item.Url">Logout</a>
+            </li>
+            } else {
+            <li class="nav-item @(item.IsAncestorOrSelf(Model.Content) ? "current" : null) dropdown">
+                <a class="nav-link" href="@item.Url">@item.Name</a>
+                
+                @if(item.Children.Where("Visible").Count() > 0 && item.Name == "Projects" && Members.GetCurrentLoginStatus().IsLoggedIn)
+                {
+                
+                <ul class="dropdown-menu">
+                    @foreach (var subpage in item.Children.Where("Visible"))
+                    {
+                        if(subpage.GetPropertyValue<String>("status") == "Completed"){
+                        <li><a class="dropdown-item" href="@subpage.Url">@subpage.Name</a></li>
+                        }
+                    }
+                </ul>
+                }
+            </li>
+            }
+        }
+    </ul>
+}

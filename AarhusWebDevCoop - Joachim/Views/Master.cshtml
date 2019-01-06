@@ -1,0 +1,40 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Master>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = null;
+}
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<header>
+    <div class="container">
+        <div class="row navbar navbar-expand-lg navbar-light">
+             <div>
+                 @Html.Partial("Navbar")
+             </div>
+             
+        </div>
+    </div>
+    
+</header>
+
+<body>
+    <div class="main">
+    @RenderBody()
+    </div>
+</body>
+
+<footer class="footer">
+
+  <div class="container">
+    <span class="text-muted"> 2018 Copyright: Joachimnh@live.com</span>
+  </div>
+
+</footer>
+<script src="/scripts/jquery-3.3.1.min.js"></script>
+<script src="/scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
